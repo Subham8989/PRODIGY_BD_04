@@ -1,11 +1,12 @@
 from flask_restful import Resource, reqparse
 from ...models import User
-from ....extensions import db
+from ....extensions import db, cache
 
 parser = reqparse.RequestParser()
 parser.add_argument("name", type=str, required=True, help="Name must be provided!")
 
 class UsersRoute(Resource):
+    @cache.cached(key_prefix="all_users")
     def get(self):
         users = db.session.execute(db.select(User))
         user_list = list()
@@ -21,6 +22,7 @@ class UsersRoute(Resource):
 
         new_user = User(name=name)
         db.session.add(new_user)
+        cache.delete("all_users")
         db.session.commit()
 
         return { "message": "User Created!" }, 201
