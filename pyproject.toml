@@ -1,0 +1,14 @@
+[project]
+name = "prodigy-bd-04"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "dotenv>=0.9.9",
+    "flask>=3.1.1",
+    "flask-caching>=2.3.1",
+    "flask-restful>=0.3.10",
+    "flask-sqlalchemy>=3.1.1",
+    "redis>=6.2.0",
+]
